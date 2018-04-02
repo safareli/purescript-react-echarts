@@ -1,0 +1,27 @@
+{
+  "name": "purescript-react-echarts",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/f-o-a-m/purescript-react-echarts.git"
+  },
+  "ignore": [
+    "**/.*",
+    "bower_components",
+    "node_modules",
+    "output",
+    "test",
+    "bower.json",
+    "package.json"
+  ],
+  "dependencies": {
+    "purescript-react": "^4.4.0",
+    "purescript-react-dom": "^4.1.0",
+    "purescript-echarts": "^10.1.0",
+    "purescript-aff": "safareli/purescript-aff#lazy",
+    "purescript-aff-bus": "^3.0.1"
+  },
+  "devDependencies": {
+    "purescript-random": "^3.0.0"
+  }
+}
