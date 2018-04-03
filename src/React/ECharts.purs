@@ -57,6 +57,7 @@ klass =
   R.createClass spec
     { componentDidMount = componentDidMount
     , componentWillUnmount = componentWillUnmount
+    , shouldComponentUpdate = shouldComponentUpdate
     }
   where
     shouldComponentUpdate :: forall eff. R.ShouldComponentUpdate Props State (avar :: AVAR | eff)
