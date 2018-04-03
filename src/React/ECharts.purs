@@ -18,7 +18,6 @@ import Data.Nullable (toNullable)
 import Data.Tuple (Tuple(..))
 import ECharts.Chart as EC
 import ECharts.Event as EE
-
 import ECharts.Types as ET
 import Partial.Unsafe (unsafeCrashWith)
 import React as R
@@ -61,22 +60,23 @@ klass =
     }
   where
     shouldComponentUpdate :: forall eff. R.ShouldComponentUpdate Props State (avar :: AVAR | eff)
-    shouldComponentUpdate this nextProps _ = do
+    shouldComponentUpdate this nextProps nextState = do
       props <- R.getProps this
-      state <- R.readState this <#> case _ of
-        Idle -> unsafeCrashWith "in shouldComponentUpdate component must be initialised (React.ECharts.echart)"
-        Initialised s -> s
-      if nextProps.width /= props.width || nextProps.height /= props.height
-        then do
-          runAff_ mempty $ Bus.write Resize state.command
-          pure true
-        else
-          pure false
+      case nextState of
+        Idle -> do
+          unsafeCrashWith "in shouldComponentUpdate component must be initialised (React.ECharts.klass)"
+        Initialised state -> do
+          if nextProps.width /= props.width || nextProps.height /= props.height
+            then do
+              runAff_ mempty $ Bus.write Resize state.command
+              pure true
+            else
+              pure false
 
     componentWillUnmount :: forall eff. R.ComponentWillUnmount Props State (avar :: AVAR | eff)
     componentWillUnmount this = R.readState this >>= case _ of
       Idle ->
-        unsafeCrashWith "in componentWillUnmount component must be initialised (React.ECharts.echart)"
+        unsafeCrashWith "in componentWillUnmount component must be initialised (React.ECharts.klass)"
       Initialised { command } ->
         runAff_ mempty $ do
           props <- liftEff $ R.getProps this
@@ -87,7 +87,7 @@ klass =
       nodeRef <- R.readRef this nodeRefName
       let 
         node = case refToNode $ toNullable nodeRef of
-          Nothing -> unsafeCrashWith "in `componentDidMount` ref must be non null value (React.ECharts.echart)"
+          Nothing -> unsafeCrashWith "in `componentDidMount` ref must be non null value (React.ECharts.klass)"
           Just n -> (unsafeCoerce :: Node -> HTMLElement) n
       runAff_ mempty do
         Tuple commandR commandW <- Bus.split <$> Bus.make

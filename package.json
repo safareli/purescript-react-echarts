@@ -10,6 +10,9 @@
     "purescript-psa": "^0.5.1"
   },
   "devDependencies": {
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "create-react-class": "^15.6.0",
     "echarts": "cryogenian/echarts#item-value-unshift-prebuild"
   }
 }
