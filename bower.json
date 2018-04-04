@@ -3,8 +3,11 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git://github.com/f-o-a-m/purescript-react-echarts.git"
+    "url": "git://github.com/safareli/purescript-react-echarts.git"
   },
+  "authors": [
+    "Irakli Safareli <i.safareli@gmail.com>"
+  ],
   "ignore": [
     "**/.*",
     "bower_components",

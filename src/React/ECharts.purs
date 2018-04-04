@@ -85,7 +85,7 @@ klass =
     componentDidMount :: forall eff. R.ComponentDidMount Props State (avar :: AVAR, dom ∷ DOM, echarts ∷ ET.ECHARTS, exception ∷ EXCEPTION |eff)
     componentDidMount this = do
       nodeRef <- R.readRef this nodeRefName
-      let 
+      let
         node = case refToNode $ toNullable nodeRef of
           Nothing -> unsafeCrashWith "in `componentDidMount` ref must be non null value (React.ECharts.klass)"
           Just n -> (unsafeCoerce :: Node -> HTMLElement) n
