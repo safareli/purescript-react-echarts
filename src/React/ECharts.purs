@@ -98,7 +98,7 @@ klass =
         _ <- liftEff $ R.writeState this $ Initialised { command: commandW }
         props <- liftEff $ R.getProps this
         Bus.write (IsInitialised commandW) props.messages
-        
+
         fix \loop -> do
           Bus.read commandR >>= case _ of
             Dispose -> liftEff $ EC.dispose chart
@@ -109,7 +109,7 @@ klass =
             AskOptions var -> EC.getOption chart >>= flip putVar var
             Dispatch ev -> liftEff $ EE.dispatch ev chart
           loop
-      
+
       pure unit
     spec = R.spec Idle render
     render this = do
@@ -118,5 +118,3 @@ klass =
         D.div [ P.ref nodeRefName, P.style { width: props.width, height: props.height } ] []
     nodeRefName :: String
     nodeRefName = "node-ref"
-
-

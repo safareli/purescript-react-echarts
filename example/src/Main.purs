@@ -54,7 +54,7 @@ randomInArray arr = do
     Just a -> a
     Nothing -> unsafeCrashWith "impossible"
 
-type State = 
+type State =
   Array
     { idx :: Int
     , messagesBus :: Bus.BusW EC.Messages
@@ -77,11 +77,11 @@ appClass = R.createClass $ _.spec $ T.createReactSpec spec []
     spec = T.simpleSpec performAction render
 
     performAction :: forall eff. T.PerformAction (avar :: AVAR, random :: RANDOM |eff) State props Action
-    performAction action _ state = case action of 
+    performAction action _ state = case action of
       AddChart -> do
-        let 
-          idx = maybe 0 (_ + 1) $ maximum $ _.idx <$> state 
-        Tuple messagesBusR messagesBusW <- lift $ Bus.split <$> Bus.make
+        let
+          idx = maybe 0 (_ + 1) $ maximum $ _.idx <$> state
+        Tuple messagesBusR messagesBusW <- Bus.split <$> Bus.make
         busVar <- lift $ makeEmptyVar
         void $ lift $ forkAff $ fix \loop -> do
           Bus.read messagesBusR >>= case _ of
@@ -102,7 +102,7 @@ appClass = R.createClass $ _.spec $ T.createReactSpec spec []
         void $ T.writeState $ Arr.filter (\x -> x.idx /= idx) state
 
     render :: forall eff. T.Render State props Action
-    render dispatch _ state _ = pure $ 
+    render dispatch _ state _ = pure $
       D.div'
         $ [ D.h1' [ D.text "purescript-react-echarts" ]
           , D.button
@@ -113,7 +113,7 @@ appClass = R.createClass $ _.spec $ T.createReactSpec spec []
       where
       renderOne {idx, commandBus, messagesBus} =
         D.div [ P.key $ show idx ] $ fold
-          [ pure $ D.div' 
+          [ pure $ D.div'
             [ R.createFactory EC.klass
                 { messages: messagesBus
                 , width: 400

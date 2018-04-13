@@ -21,8 +21,8 @@
     "purescript-react": "^4.4.0",
     "purescript-react-dom": "^4.1.0",
     "purescript-echarts": "^10.1.0",
-    "purescript-aff": "safareli/purescript-aff#lazy",
-    "purescript-aff-bus": "^3.0.1"
+    "purescript-aff": "^4.1.0",
+    "purescript-aff-bus": "^3.1.0"
   },
   "devDependencies": {
     "purescript-random": "^3.0.0"
